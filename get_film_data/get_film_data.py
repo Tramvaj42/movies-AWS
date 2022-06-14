@@ -7,11 +7,11 @@ sqs = boto3.resource("sqs")
 
 def lambda_handler(event, context):
     
-    get_data()
+    movies = get_data()
 
     return {
         'statusCode': 200,
-        'body': 'Hello from Lambda'
+        'body': movies
     }
 
 
@@ -31,3 +31,4 @@ def get_data():
     # Send data to SQS
     queue = sqs.get_queue_by_name(QueueName='sap_interview_film_queue')
     response = queue.send_message(MessageBody=top_10_movies)
+    return top_10_movies
